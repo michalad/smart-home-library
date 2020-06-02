@@ -17,7 +17,7 @@ struct MqttProps
 
 enum DeviceType {
   ON_OFF,
-  SENSOR
+  DS18B20
 };
 
 struct MqttItem 
@@ -32,4 +32,11 @@ struct DebouncerPin
 {
     int pin;
     Bounce *debouncer;
+};
+
+struct DS18B20Temp 
+{
+    DallasTemperature *sensor;
+    float lastTemp;
+    String topicBase;
 };
