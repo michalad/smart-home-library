@@ -13,6 +13,8 @@ struct MqttProps
     const char *mqttUser;
     const char *mqttPassword;
     String deviceName;
+    int relayOn;
+    int relayOff;
 };
 
 enum DeviceType {

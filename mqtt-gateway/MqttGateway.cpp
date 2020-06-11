@@ -1,8 +1,5 @@
 #include "MqttGateway.h"
 
-#define RELAY_ON 0
-#define RELAY_OFF 1
-
 MqttGateway::MqttGateway(InternetProps internetProps,
                          MqttProps mqttProps,
                          EthernetClient *ethernetClient,
@@ -65,7 +62,7 @@ void MqttGateway::initRelay(int executivePin)
 {
   if (executivePin > -1)
   {
-    digitalWrite(executivePin, RELAY_OFF);
+    digitalWrite(executivePin, mqttProps.relayOff);
     pinMode(executivePin, OUTPUT);
   }
 }
@@ -184,7 +181,7 @@ void MqttGateway::sendTemperature(String topicBase, float temperature)
 
 const char *MqttGateway::toPayload(const bool currentState)
 {
-  if (currentState == RELAY_OFF)
+  if (currentState == mqttProps.relayOff)
   {
     return "off";
   }
@@ -225,11 +222,11 @@ void MqttGateway::handleRelay(int executivePin, byte *payload, unsigned int leng
 {
   if (!strncmp((char *)payload, "off", length))
   {
-    digitalWrite(executivePin, RELAY_OFF);
+    digitalWrite(executivePin, mqttProps.relayOff);
   }
   else if (!strncmp((char *)payload, "on", length))
   {
-    digitalWrite(executivePin, RELAY_ON);
+    digitalWrite(executivePin, mqttProps.relayOn);
   }
 }
 
