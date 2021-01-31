@@ -74,7 +74,7 @@ void MqttGateway::setupButton(int buttonPin)
     pinMode(buttonPin, INPUT_PULLUP);
     Bounce *debouncer = new Bounce();
     debouncer->attach(buttonPin);
-    debouncer->interval(100);
+    debouncer->interval(50);
     debouncers->add({buttonPin, debouncer});
   }
 }
@@ -237,7 +237,7 @@ const char *MqttGateway::toCharArray(String string)
 
 boolean MqttGateway::canReadTemperature()
 {
-  return millis() - lastTemperatureRead > 5000;
+  return millis() - lastTemperatureRead > 60000;
 }
 
 boolean MqttGateway::canReconnect()
